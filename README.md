@@ -173,6 +173,27 @@ npm run test:watch
 - `npm run db:generate` - Generate Prisma client
 - `npm run db:push` - Push schema to database
 
+### CI Environment
+
+For CI/CD environments where network access to Prisma binaries is restricted, use the CI setup script:
+
+```bash
+node scripts/ci-setup.js
+```
+
+This script creates minimal Prisma client type definitions without downloading binary engines, allowing builds and tests to run in firewall-restricted environments. The tests use mocked Prisma clients, so real database engines are not needed for testing.
+
+## Continuous Integration
+
+The project includes GitHub Actions workflow that:
+- Tests against Node.js 18.x and 20.x
+- Runs protobuf code generation
+- Creates CI-compatible Prisma client types
+- Builds the TypeScript project
+- Executes all unit tests
+
+All 15 unit tests must pass for CI to succeed.
+
 ## Project Structure
 
 ```
