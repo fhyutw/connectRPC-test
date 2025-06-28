@@ -1,0 +1,43 @@
+{
+  "name": "connectrpc-test",
+  "version": "1.0.0",
+  "description": "Connect RPC Member Management System",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "generate": "npx buf generate",
+    "db:push": "npx prisma db push",
+    "db:generate": "npx prisma generate",
+    "example": "ts-node example-client.ts"
+  },
+  "keywords": ["connectrpc", "prisma", "postgresql", "member-management"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bufbuild/buf": "^1.55.1",
+    "@bufbuild/protoc-gen-es": "^1.10.1",
+    "@connectrpc/connect": "^1.6.1",
+    "@connectrpc/connect-node": "^1.6.1",
+    "@connectrpc/protoc-gen-connect-es": "^1.6.1",
+    "@prisma/client": "^6.10.1",
+    "bcryptjs": "^3.0.2",
+    "prisma": "^6.10.1",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.6",
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "jest": "^30.0.3",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

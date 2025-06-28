@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id          String      @id @default(cuid())
+  account     String      @unique
+  password    String      // encrypted password
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  // Relation to Member PII
+  memberPII   MemberPII?
+  
+  @@map("members")
+}
+
+model MemberPII {
+  id        String    @id @default(cuid())
+  memberId  String    @unique
+  name      String
+  birthday  DateTime?
+  phone     String?
+  gender    String?   // 'male', 'female', 'other'
+  address   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+  // Foreign key relation
+  member    Member    @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  
+  @@map("member_pii")
+}
