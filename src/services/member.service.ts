@@ -18,7 +18,6 @@ import {
 } from '../gen/src/proto/member/v1/member_pb';
 import { prisma } from '../utils/prisma';
 import { PasswordUtils } from '../utils/password';
-import type { PrismaClient } from '@prisma/client';
 
 export const memberService: ServiceImpl<typeof MemberService> = {
   async createMember(req: CreateMemberRequest): Promise<CreateMemberResponse> {
@@ -36,7 +35,7 @@ export const memberService: ServiceImpl<typeof MemberService> = {
       const hashedPassword = await PasswordUtils.hashPassword(req.password);
 
       // Create member with PII in a transaction
-      const result = await prisma.$transaction(async (tx: PrismaClient) => {
+      const result = await prisma.$transaction(async (tx: any) => {
         const member = await tx.member.create({
           data: {
             account: req.account,
@@ -105,7 +104,7 @@ export const memberService: ServiceImpl<typeof MemberService> = {
         throw new ConnectError('Member not found', Code.NotFound);
       }
 
-      const result = await prisma.$transaction(async (tx: PrismaClient) => {
+      const result = await prisma.$transaction(async (tx: any) => {
         const updateData: any = {};
         
         if (req.account) {
